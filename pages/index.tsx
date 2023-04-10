@@ -1,10 +1,26 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import { useSession } from "next-auth/react";
-import { signOut } from "next-auth/react";
+import { signOut, getSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { NextPageContext } from "next";
 
-const inter = Inter({ subsets: ["latin"] });
+export async function getServerSideProps(context: NextPageContext) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/auth",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+}
 
 export default function Home() {
   const { data, status } = useSession();
@@ -42,7 +58,10 @@ export default function Home() {
               {data.user?.email}
             </span>
           </div>
-          <div className="overflow-hidden rounded-full">
+          <div
+            className="overflow-hidden rounded-full"
+            onClick={() => router.push("/profiles")}
+          >
             <img
               className="h-20 w-20 rounded-full hover:scale-125  transition cursor-pointer object-cover"
               src={
