@@ -1,9 +1,8 @@
-import Image from "next/image";
-import { Inter } from "next/font/google";
 import { useSession } from "next-auth/react";
 import { signOut, getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { NextPageContext } from "next";
+import Navbar from "@/components/Navbar";
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
@@ -50,45 +49,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="container mx-auto my-5">
-        <div className="flex justify-between items-center">
-          <div className="text-white text-4xl font-bold flex">
-            <p className="  mr-4">Hi:</p>
-            <span className="text-sky-800 font-bold text-4xl">
-              {data.user?.email}
-            </span>
-          </div>
-          <div
-            className="overflow-hidden rounded-full"
-            onClick={() => router.push("/profiles")}
-          >
-            <img
-              className="h-20 w-20 rounded-full hover:scale-125  transition cursor-pointer object-cover"
-              src={
-                data.user?.image ||
-                "https://www.kindpng.com/picc/m/21-213982_koki-colleen-png-download-default-profile-picture-circle.png"
-              }
-              alt=""
-            />
-          </div>
-        </div>
-        <button
-          className="text-white bg-red-700 rounded-md px-5 py-1 hover:bg-red-950 transition mr-4
-        "
-          onClick={() => signOut()}
-        >
-          Sign out
-        </button>
-        {!data && (
-          <button
-            className="text-white bg-red-700 rounded-md px-5 py-1 hover:bg-red-950 transition
-      "
-            onClick={() => router.push("/auth")}
-          >
-            Login
-          </button>
-        )}
-      </div>
+      <Navbar />
     </>
   );
 }
