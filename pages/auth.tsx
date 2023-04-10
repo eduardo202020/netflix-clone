@@ -4,6 +4,8 @@ import { log } from "console";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
@@ -88,6 +90,21 @@ const Auth = () => {
             >
               {variant === "login" ? "Login" : "Sign up"}
             </button>
+            <div className="flex flex-row mt-8 gap-4 justify-center items-center">
+              <div className="flex items-center justify-center cursor-pointer hover:opacity-80 transition w-10 h-10 bg-white rounded-full">
+                <FcGoogle size={30} />
+              </div>
+              <div
+                onClick={() =>
+                  signIn("github", {
+                    callbackUrl: "/",
+                  })
+                }
+                className="flex items-center justify-center cursor-pointer hover:opacity-80 transition w-10 h-10 bg-white rounded-full"
+              >
+                <FaGithub size={30} />
+              </div>
+            </div>
             <p className="text-neutral-400 mt-12">
               {variant === "login"
                 ? "Firs time using a Netflix?"
