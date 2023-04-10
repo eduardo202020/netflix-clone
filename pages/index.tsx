@@ -1,9 +1,11 @@
 import { useSession } from "next-auth/react";
-import { signOut, getSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { NextPageContext } from "next";
 import Navbar from "@/components/Navbar";
 import Billboard from "@/components/Billboard";
+import MovieList from "@/components/MovieList";
+import useMovieList from "@/hooks/useMovieList";
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
@@ -23,30 +25,15 @@ export async function getServerSideProps(context: NextPageContext) {
 }
 
 export default function Home() {
-  const { data, status } = useSession();
-  const router = useRouter();
-
-  // if (!data) {
-  //   return (
-  //     <>
-  //       <div className="text-white text-xl flex justify-center items-center mt-5">
-  //         No hay usuario registrado
-  //       </div>
-  //       <button
-  //         className="text-white bg-red-700 rounded-md px-5 py-1 hover:bg-red-950 transition
-  //    "
-  //         onClick={() => router.push("/auth")}
-  //       >
-  //         Login
-  //       </button>
-  //     </>
-  //   );
-  // }
+  const { data: movies = [] } = useMovieList();
 
   return (
     <>
       <Navbar />
       <Billboard />
+      <div className="pb-40">
+        <MovieList title="Trending Now" data={movies} />
+      </div>
     </>
   );
 }
