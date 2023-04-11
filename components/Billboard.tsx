@@ -2,6 +2,7 @@ import useBillboard from "@/hooks/useBillboard";
 import React from "react";
 
 import { AiOutlineInfoCircle } from "react-icons/ai";
+import PlayButton from "./PlayButton";
 
 const Billboard = () => {
   const { data, error, isLoading } = useBillboard();
@@ -28,6 +29,7 @@ const Billboard = () => {
           {data?.description}
         </p>
         <div className="flex flex-row items-center mt-3 md:mt-4 gap-3">
+          <PlayButton movieId={data.id} />
           <button className="text-white bg-white/30 rounded-md px-2 md:px-4 py-1 md:py-2 w-autot text-xs lg:text-lg font-semibold hover:bg-white/20 transition flex flex-row items-center">
             <AiOutlineInfoCircle className="mr-1" />
             More info
