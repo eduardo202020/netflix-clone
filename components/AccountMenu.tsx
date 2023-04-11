@@ -3,9 +3,10 @@ import { signOut } from "next-auth/react";
 
 interface AccountMenuProps {
   visible: boolean;
+  name: string;
 }
 
-const AccountMenu: FC<AccountMenuProps> = ({ visible }) => {
+const AccountMenu: FC<AccountMenuProps> = ({ visible, name }) => {
   if (!visible) {
     return null;
   }
@@ -20,7 +21,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ visible }) => {
             className="w-8 rounded-full "
           />
           <p className="text-white text-sm group-hover/item:underline">
-            Username
+            {name}
           </p>
         </div>
         <hr className="bg-gray-600 border-0 h-px my-4" />

@@ -17,7 +17,6 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      console.log(window.scrollY);
       if (window.scrollY > TOP_OFFSET) {
         setShowBackground(true);
       } else {
@@ -90,7 +89,10 @@ const Navbar = () => {
                 showAccountMenu && "rotate-180"
               } transition duration-200`}
             />
-            <AccountMenu visible={showAccountMenu} />
+            <AccountMenu
+              visible={showAccountMenu}
+              name={data?.user?.name || ""}
+            />
           </div>
         </div>
       </div>
